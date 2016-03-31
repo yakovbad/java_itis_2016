@@ -12,6 +12,6 @@
 hs_err_pid*
 
 
-CounterWebApp/.idea/*
-CounterWebApp/target/*
-CounterWebApp/CounterWebApp.iml
+webApp/.idea/*
+webApp/target/*
+webApp/webApp.iml
