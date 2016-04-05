@@ -3,6 +3,7 @@ package org.itis.gv404.dao;
 
 import org.itis.gv404.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -24,23 +25,30 @@ public class CustomerDAOImpl implements CustomerDAO{
 
     @Override
     public List<Customer> getAll() {
-        return this.jdbcTemplate.query("SELECT * FROM customer" , new CustomerMapper());
+        String sql = "SELECT * FROM customer";
+
+        return this.jdbcTemplate.query(sql , new BeanPropertyRowMapper<Customer>(Customer.class));
     }
 
-    private static final class CustomerMapper implements RowMapper<Customer> {
+    @Override
+    public void addCustomer(final Customer customer) {
+        String sql = "INSERT INTO customer(lastname, firstname, middlename, age)" +
+                "VALUES (?, ?, ?, ?)";
 
-        @Override
-        public Customer mapRow(ResultSet resultSet, int i) throws SQLException {
-            Customer customer = new Customer();
-
-            customer.setLastName(resultSet.getString("lastname"));
-            customer.setFirstName(resultSet.getString("firstname"));
-            customer.setMiddleName(resultSet.getString("middlename"));
-            customer.setAge(resultSet.getInt("age"));
-
-            return customer;
-        }
+        this.jdbcTemplate.update(sql, customer.getLastName(), customer.getFirstName(), customer.getMiddleName(), customer.getAge());
     }
 
+    @Override
+    public Customer findById(Integer id) {
+        String sql = "SELECT * FROM customer WHERE id = ?";
 
+        return this.jdbcTemplate.queryForObject(sql,new Object[]{id}, new BeanPropertyRowMapper<Customer>(Customer.class));
+    }
+
+    @Override
+    public void deleteCustomerById(Integer id) {
+        String sql = "DELETE FROM customer WHERE id = ?";
+
+        this.jdbcTemplate.update(sql, id);
+    }
 }

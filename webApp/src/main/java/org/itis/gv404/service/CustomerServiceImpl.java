@@ -16,7 +16,22 @@ public class CustomerServiceImpl implements CustomerService{
     private CustomerDAO customerDAO;
 
     @Transactional
-    public List getAll() {
+    public List<Customer> getAll() {
         return customerDAO.getAll();
+    }
+
+    @Transactional
+    public void addCustomer(Customer customer) {
+        customerDAO.addCustomer(customer);
+    }
+
+    @Transactional
+    public Customer findById(Integer id) {
+        return customerDAO.findById(id);
+    }
+
+    @Transactional
+    public void deleteCustomerById(Integer id) {
+        customerDAO.deleteCustomerById(id);
     }
 }

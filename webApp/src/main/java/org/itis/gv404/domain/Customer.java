@@ -2,11 +2,19 @@ package org.itis.gv404.domain;
 
 
 public class Customer {
-
+    private int id;
     private String lastName;
     private String firstName;
     private String middleName;
     private Integer age;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getLastName() {
         return lastName;
@@ -43,7 +51,8 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "lastName='" + lastName + '\'' +
+                "id=" + id +
+                ", lastName='" + lastName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", age=" + age +
