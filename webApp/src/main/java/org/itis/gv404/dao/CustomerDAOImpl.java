@@ -46,6 +46,13 @@ public class CustomerDAOImpl implements CustomerDAO{
     }
 
     @Override
+    public void updateCustomer(Customer customer) {
+        String sql = "UPDATE customer SET lastname=?, firstname=?, middlename=?, age=? WHERE id=?";
+
+        this.jdbcTemplate.update(sql, customer.getLastName(), customer.getFirstName(), customer.getMiddleName(), customer.getAge(), customer.getId());
+    }
+
+    @Override
     public void deleteCustomerById(Integer id) {
         String sql = "DELETE FROM customer WHERE id = ?";
 

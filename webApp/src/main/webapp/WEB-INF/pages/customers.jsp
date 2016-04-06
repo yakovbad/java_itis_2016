@@ -25,12 +25,12 @@
     <tbody>
     <c:forEach items="${customers}" var="customer">
         <tr>
-            <td><a href="/customer/${customer.id}">${customer.id}</a></td>
+            <td>${customer.id}</td>
             <td>${customer.lastName}</td>
             <td>${customer.firstName}</td>
             <td>${customer.age}</td>
-            <td>Edit</td>
-            <td>Delete</td>
+            <td><a href="/customer/edit/${customer.id}">Edit</a></td>
+            <td><a href="/customer/delete/${customer.id}">Delete</a></td>
         </tr>
     </c:forEach>
     </tbody>

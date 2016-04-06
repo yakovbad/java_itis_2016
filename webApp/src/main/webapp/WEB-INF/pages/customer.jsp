@@ -6,11 +6,34 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
-${customer}
+<h1>Form</h1>
+<form:form method="POST" action="/customer/add" modelAttribute="customer">
+    <table>
+        <tr>
+            <td><form:hidden path="id"/></td>
+        </tr>
+        <tr>
+            <td><form:input path="lastName"/></td>
+        </tr>
+        <tr>
+            <td><form:input path="firstName"/></td>
+        </tr>
+        <tr>
+            <td><form:input path="middleName"/></td>
+        </tr>
+        <tr>
+            <td><form:input path="age"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"/></td>
+        </tr>
+    </table>
+</form:form>
 </body>
 </html>

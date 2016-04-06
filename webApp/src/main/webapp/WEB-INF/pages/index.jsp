@@ -14,5 +14,6 @@
 <body>
 ${message}
 <a href="<c:url value="/customer/all"/>">All customers</a>
+<a href="<c:url value="/customer/add"/>">Add Customer</a>
 </body>
 </html>
