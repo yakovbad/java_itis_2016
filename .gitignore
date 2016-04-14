@@ -17,3 +17,6 @@ webApp/target/*
 webApp/webApp.iml
 webApp/db/*
 *.log
+homework/itis-app/itis-spring-mvc/target/*
+*.iml
+homework/itis-app/.idea/
