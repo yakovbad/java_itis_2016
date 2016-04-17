@@ -1,12 +1,29 @@
 package org.itis.gv404.domain;
 
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "customers")
 public class Customer {
+    @Id
+    @Column(name = "CUSTOMER_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String lastName;
-    private String firstName;
-    private String middleName;
-    private Integer age;
+
+    @Column(name = "FIRSTNAME")
+    private String firstname;
+
+    @Column(name = "LASTNAME")
+    private String lastname;
+
+    @Column(name = "AGE")
+    private int age;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="customer")
+    private List<Order> orders = new ArrayList<Order>();
 
     public int getId() {
         return id;
@@ -16,46 +33,46 @@ public class Customer {
         this.id = id;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public Integer getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(Integer age) {
+    public void setAge(int age) {
         this.age = age;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +
-                ", lastName='" + lastName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", middleName='" + middleName + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
                 ", age=" + age +
+                ", orders=" + orders +
                 '}';
     }
 }

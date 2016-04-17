@@ -34,6 +34,7 @@ public class CustomerController {
         Object response;
         try {
             response = customerService.findById(Integer.parseInt(id));
+            System.out.println(response);
         } catch (EmptyResultDataAccessException e) {
             e.printStackTrace();
             response = "Такой пользователь удален или еще не создан.";

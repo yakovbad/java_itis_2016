@@ -1,61 +1,48 @@
 package org.itis.gv404.dao;
 
 
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.itis.gv404.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 
-import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class CustomerDAOImpl implements CustomerDAO{
 
-    private JdbcTemplate jdbcTemplate;
-
-
     @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
+    private SessionFactory sessionFactory;
 
-    @Override
+    @SuppressWarnings("unchecked")
     public List<Customer> getAll() {
-        String sql = "SELECT * FROM customer";
-
-        return this.jdbcTemplate.query(sql , new BeanPropertyRowMapper<Customer>(Customer.class));
+        return sessionFactory.getCurrentSession().createCriteria(Customer.class).list();
     }
 
     @Override
-    public void addCustomer(final Customer customer) {
-        String sql = "INSERT INTO customer(lastname, firstname, middlename, age)" +
-                "VALUES (?, ?, ?, ?)";
-
-        this.jdbcTemplate.update(sql, customer.getLastName(), customer.getFirstName(), customer.getMiddleName(), customer.getAge());
+    public void addCustomer(Customer customer) {
+        sessionFactory.getCurrentSession().save(customer);
     }
 
     @Override
     public Customer findById(Integer id) {
-        String sql = "SELECT * FROM customer WHERE id = ?";
-
-        return this.jdbcTemplate.queryForObject(sql,new Object[]{id}, new BeanPropertyRowMapper<Customer>(Customer.class));
-    }
-
-    @Override
-    public void updateCustomer(Customer customer) {
-        String sql = "UPDATE customer SET lastname=?, firstname=?, middlename=?, age=? WHERE id=?";
-
-        this.jdbcTemplate.update(sql, customer.getLastName(), customer.getFirstName(), customer.getMiddleName(), customer.getAge(), customer.getId());
+        return (Customer) sessionFactory.getCurrentSession()
+                .createCriteria(Customer.class)
+                .add(Restrictions.eq("id", id))
+                .uniqueResult();
     }
 
     @Override
     public void deleteCustomerById(Integer id) {
-        String sql = "DELETE FROM customer WHERE id = ?";
+        System.out.println("delete");
+//        todo change customer model: added was_deleted field
+//        todo and this method change new field
+    }
 
-        this.jdbcTemplate.update(sql, id);
+    @Override
+    public void updateCustomer(Customer customer) {
+        sessionFactory.getCurrentSession().saveOrUpdate(customer);
     }
 }

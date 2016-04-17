@@ -19,13 +19,10 @@
             <td><form:hidden path="id"/></td>
         </tr>
         <tr>
-            <td><form:input path="lastName"/></td>
+            <td><form:input path="lastname"/></td>
         </tr>
         <tr>
-            <td><form:input path="firstName"/></td>
-        </tr>
-        <tr>
-            <td><form:input path="middleName"/></td>
+            <td><form:input path="firstname"/></td>
         </tr>
         <tr>
             <td><form:input path="age"/></td>
