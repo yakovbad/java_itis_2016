@@ -3,6 +3,7 @@ package org.itis.gv404.web;
 import org.apache.taglibs.standard.extra.spath.Step;
 import org.itis.gv404.domain.Customer;
 import org.itis.gv404.service.CustomerService;
+import org.itis.gv404.util.exception.CustomerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
@@ -16,47 +17,48 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
+@RequestMapping(value = "/customer")
 public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
 
-    @RequestMapping(value = "/customer/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String all(ModelMap model) {
-        List<Customer> customers = customerService.getAll();
-        model.addAttribute("customers", customers);
+        model.addAttribute("customers", customerService.getAll());
 
         return "customers";
     }
 
-    @RequestMapping(value = "/customer/edit/{id}", method = RequestMethod.GET)
-    public String getById(ModelMap model, @PathVariable String id) {
-        Object response;
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String getCustomerById(ModelMap model, @PathVariable String id) {
+        Object response = null;
+        String error = "";
         try {
-            response = customerService.findById(Integer.parseInt(id));
-            System.out.println(response);
-        } catch (EmptyResultDataAccessException e) {
-            e.printStackTrace();
-            response = "Такой пользователь удален или еще не создан.";
+            response = customerService.findCustomerById(Integer.parseInt(id));
+        } catch (CustomerNotFoundException e) {
+            error = e.getMessage();
         }
+
+        model.addAttribute("error", error);
         model.addAttribute("customer", response);
 
         return "customer";
     }
 
 
-    @RequestMapping(value = "/customer/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addCustomer(Model model) {
         model.addAttribute("customer", new Customer());
         return "customer";
     }
 
-    @RequestMapping(value = "/customer/add", method = RequestMethod.POST)
-    public String addCustomer(@ModelAttribute Customer customer, Model model) {
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String addCustomer(@ModelAttribute Customer customer) {
         try {
-            customerService.findById(customer.getId());
+            customerService.findCustomerById(customer.getId());
             customerService.updateCustomer(customer);
-        } catch (EmptyResultDataAccessException e) {
+        } catch (CustomerNotFoundException e) {
             e.printStackTrace();
             customerService.addCustomer(customer);
         }
@@ -64,15 +66,9 @@ public class CustomerController {
         return "redirect:/customer/all";
     }
 
-    @RequestMapping(value = "/customer/delete/{id}", method = RequestMethod.GET)
-    // todo change method
-    public String deleteCustomer(ModelMap model, @PathVariable String id) {
-        try {
-            customerService.deleteCustomerById(Integer.parseInt(id));
-        } catch (EmptyResultDataAccessException e) {
-            e.printStackTrace();
-        }
-
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteCustomer(@PathVariable String id) {
+        customerService.deleteCustomerById(Integer.parseInt(id));
         return "redirect:/customer/all";
     }
 

@@ -27,18 +27,20 @@ public class CustomerDAOImpl implements CustomerDAO{
     }
 
     @Override
-    public Customer findById(Integer id) {
-        return (Customer) sessionFactory.getCurrentSession()
+    public Customer findCustomerById(Integer id) {
+        Customer customer = (Customer) sessionFactory.getCurrentSession()
                 .createCriteria(Customer.class)
                 .add(Restrictions.eq("id", id))
                 .uniqueResult();
+        if (customer == null)
+            throw new NullPointerException();
+        return customer;
     }
 
     @Override
     public void deleteCustomerById(Integer id) {
-        System.out.println("delete");
-//        todo change customer model: added was_deleted field
-//        todo and this method change new field
+        Customer customer = findCustomerById(id);
+        sessionFactory.getCurrentSession().delete(customer);
     }
 
     @Override

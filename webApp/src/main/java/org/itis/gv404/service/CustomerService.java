@@ -2,6 +2,7 @@ package org.itis.gv404.service;
 
 
 import org.itis.gv404.domain.Customer;
+import org.itis.gv404.util.exception.CustomerNotFoundException;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface CustomerService {
 
     void addCustomer(Customer customer);
 
-    Customer findById(Integer id);
+    Customer findCustomerById(Integer id) throws CustomerNotFoundException;
 
     void deleteCustomerById(Integer id);
 

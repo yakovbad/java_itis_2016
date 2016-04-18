@@ -10,7 +10,7 @@ public interface CustomerDAO {
 
     void addCustomer(Customer customer);
 
-    Customer findById(Integer id);
+    Customer findCustomerById(Integer id);
 
     void deleteCustomerById(Integer id);
 

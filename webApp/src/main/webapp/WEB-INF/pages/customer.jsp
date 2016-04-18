@@ -7,12 +7,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
 <h1>Form</h1>
+${error}
+<c:if test="${customer != null}">
 <form:form method="POST" action="/customer/add" modelAttribute="customer">
     <table>
         <tr>
@@ -32,5 +35,6 @@
         </tr>
     </table>
 </form:form>
+</c:if>
 </body>
 </html>
