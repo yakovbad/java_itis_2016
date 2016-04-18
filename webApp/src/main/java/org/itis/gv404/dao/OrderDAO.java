@@ -10,9 +10,9 @@ public interface OrderDAO {
 
     void addOrder(Order order);
 
-    Order findById(Integer id);
+    Order findOrderById(Integer id);
 
-    void deleteOrderById(Integer Id);
+    void deleteOrderById(Integer id);
 
     void updateOrder(Order order);
 }

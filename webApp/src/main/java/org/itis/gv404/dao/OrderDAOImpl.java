@@ -25,18 +25,20 @@ public class OrderDAOImpl implements OrderDAO{
     }
 
     @Override
-    public Order findById(Integer id) {
-
-        return (Order) sessionFactory.getCurrentSession()
+    public Order findOrderById(Integer id) {
+        Order order = (Order) sessionFactory.getCurrentSession()
                 .createCriteria(Order.class)
                 .add(Restrictions.eq("id", id))
                 .uniqueResult();
+        if (order == null)
+            throw new NullPointerException();
+        return order;
     }
 
     @Override
-    public void deleteOrderById(Integer Id) {
-//        todo change order model: added was_deleted field
-//        todo and this method change new field
+    public void deleteOrderById(Integer id) {
+        Order order = findOrderById(id);
+        sessionFactory.getCurrentSession().delete(order);
     }
 
     @Override
