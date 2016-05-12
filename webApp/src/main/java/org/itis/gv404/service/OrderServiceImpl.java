@@ -1,6 +1,7 @@
 package org.itis.gv404.service;
 
 
+import org.itis.gv404.dao.CustomerDAO;
 import org.itis.gv404.dao.OrderDAO;
 import org.itis.gv404.domain.Order;
 import org.itis.gv404.util.exception.OrderNotFoundException;
@@ -16,6 +17,9 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private OrderDAO orderDAO;
 
+    @Autowired
+    private CustomerDAO customerDAO;
+
     @Transactional
     public List<Order> getAll() {
         return orderDAO.getAll();
@@ -23,6 +27,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Transactional
     public void addOrder(Order order) {
+        order.setCustomer(customerDAO.findCustomerById(order.getCustomerId()));
         orderDAO.addOrder(order);
     }
 
@@ -40,6 +45,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Transactional
     public void updateOrder(Order order) {
+        order.setCustomer(customerDAO.findCustomerById(order.getCustomerId()));
         orderDAO.updateOrder(order);
     }
 

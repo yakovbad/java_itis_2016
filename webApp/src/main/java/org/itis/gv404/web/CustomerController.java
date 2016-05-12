@@ -4,11 +4,13 @@ import org.apache.taglibs.standard.extra.spath.Step;
 import org.itis.gv404.domain.Customer;
 import org.itis.gv404.service.CustomerService;
 import org.itis.gv404.util.exception.CustomerNotFoundException;
+import org.itis.gv404.util.validator.CustomerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +56,11 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addCustomer(@ModelAttribute Customer customer) {
+    public String addCustomer(@ModelAttribute Customer customer, BindingResult result) {
+        new CustomerValidator().validate(customer, result);
+        if (result.hasErrors()){
+            return "customer";
+        }
         try {
             customerService.findCustomerById(customer.getId());
             customerService.updateCustomer(customer);

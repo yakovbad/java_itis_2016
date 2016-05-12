@@ -23,14 +23,14 @@
         </tr>
     </thead>
     <tbody>
-    <c:forEach items="${customers}" var="customer">
+    <c:forEach items="${customers}" var="order">
         <tr>
-            <td>${customer.id}</td>
-            <td>${customer.lastname}</td>
-            <td>${customer.firstname}</td>
-            <td>${customer.age}</td>
-            <td><a href="/customer/edit/${customer.id}">Edit</a></td>
-            <td><a href="/customer/delete/${customer.id}">Delete</a></td>
+            <td>${order.id}</td>
+            <td>${order.lastname}</td>
+            <td>${order.firstname}</td>
+            <td>${order.age}</td>
+            <td><a href="/customer/edit/${order.id}">Edit</a></td>
+            <td><a href="/customer/delete/${order.id}">Delete</a></td>
         </tr>
     </c:forEach>
     </tbody>

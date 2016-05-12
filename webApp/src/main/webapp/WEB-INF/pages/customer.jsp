@@ -35,6 +35,29 @@ ${error}
         </tr>
     </table>
 </form:form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${customer.orders}" var="order">
+            <tr>
+                <td>${order.id}</td>
+                <td><a href="/customer/edit/${order.customer.id}">${order.customer.lastname} ${order.customer.firstname}</a></td>
+                <td>${order.product}</td>
+                <td>${order.price}</td>
+                <td><a href="/order/edit/${order.id}">Edit</a></td>
+                <td><a href="/order/delete/${order.id}">Delete</a></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 </c:if>
 </body>
 </html>

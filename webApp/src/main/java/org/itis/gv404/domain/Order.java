@@ -14,6 +14,9 @@ public class Order {
     @JoinColumn(name = "CUSTOMER_ID", referencedColumnName="CUSTOMER_ID")
     private Customer customer;
 
+    @Column(name = "CUSTOMER_ID", insertable = false, updatable = false)
+    private int customerId;
+
     @Column(name = "PRODUCT")
     private String product;
 
@@ -39,6 +42,14 @@ public class Order {
         this.customer = customer;
     }
 
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
     public String getProduct() {
         return product;
     }
@@ -59,7 +70,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", customer=" + customer.getFirstname() +
+                ", customerId=" + customerId +
                 ", product='" + product + '\'' +
                 ", price=" + price +
                 '}';
