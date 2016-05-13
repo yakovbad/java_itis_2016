@@ -11,6 +11,9 @@
   <properties>
     <spring.version>4.2.5.RELEASE</spring.version>
     <junit.version>3.8.1</junit.version>
+
+    <!--deploy property-->
+    <deployFolder>/usr/local/apache-tomcat-8.0.33/webapps</deployFolder>
   </properties>
 
   <dependencies>
@@ -172,6 +175,24 @@
             <include>**/*Tests.java</include>
           </includes>
         </configuration>
+      </plugin>
+      <!-- deploy plugin -->
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>integration-test</phase>
+            <configuration>
+              <tasks>
+                <copy file="target/${project.build.finalName}.war"
+                      tofile="${deployFolder}/${project.build.finalName}.war"/>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
