@@ -56,8 +56,6 @@ public class OrderServiceImpl implements OrderService{
         Customer customer = customerService.findCustomerById(order.getCustomerId());
         order.setCustomer(customer);
         orderDAO.updateOrder(order);
-//        customer.getOrders().add(order);
-//        customerService.updateCustomer(customer);
     }
 
     @Transactional

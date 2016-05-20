@@ -1,7 +1,12 @@
 package org.itis.gv404.domain;
 
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +27,8 @@ public class Customer {
     @Column(name = "AGE")
     private int age;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="customer")
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy="customer")
+    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     private List<Order> orders = new ArrayList<Order>();
 
     public int getId() {

@@ -43,6 +43,6 @@ public class OrderDAOImpl implements OrderDAO{
 
     @Override
     public void updateOrder(Order order) {
-        sessionFactory.getCurrentSession().update(order);
+        sessionFactory.getCurrentSession().merge(order);
     }
 }
