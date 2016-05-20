@@ -13,13 +13,15 @@
 </head>
 <body>
 
-<table>
+<table border="1">
     <thead>
         <tr>
             <th>Id</th>
             <th>Last Name</th>
             <th>First Name</th>
             <th>Age</th>
+            <th>Edit</th>
+            <th>Delete?</th>
         </tr>
     </thead>
     <tbody>
@@ -29,11 +31,12 @@
             <td>${order.lastname}</td>
             <td>${order.firstname}</td>
             <td>${order.age}</td>
-            <td><a href="/customer/edit/${order.id}">Edit</a></td>
-            <td><a href="/customer/delete/${order.id}">Delete</a></td>
+            <td><a href="/webApp/customer/edit/${order.id}">Edit</a></td>
+            <td><a href="/webApp/customer/delete/${order.id}">Delete</a></td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
+<a href="add">Add customer</a>
 </body>
 </html>

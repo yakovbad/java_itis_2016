@@ -38,7 +38,7 @@ public class CustomerController {
         String error = "";
         try {
             response = customerService.findCustomerById(Integer.parseInt(id));
-        } catch (CustomerNotFoundException e) {
+        } catch (Exception e) {
             error = e.getMessage();
         }
 
@@ -64,7 +64,7 @@ public class CustomerController {
         try {
             customerService.findCustomerById(customer.getId());
             customerService.updateCustomer(customer);
-        } catch (CustomerNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             customerService.addCustomer(customer);
         }

@@ -11,7 +11,7 @@ public interface CustomerService {
 
     void addCustomer(Customer customer);
 
-    Customer findCustomerById(Integer id) throws CustomerNotFoundException;
+    Customer findCustomerById(Integer id);
 
     void deleteCustomerById(Integer id);
 

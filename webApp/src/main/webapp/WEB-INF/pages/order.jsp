@@ -8,24 +8,33 @@
 <body>
 <h1>Form</h1>
 <c:if test="${order != null}">
-    <form:form method="POST" action="/order/add" modelAttribute="order">
+    <form:form method="POST" action="/webApp/order/add" modelAttribute="order">
         <table>
             <tr>
                 <td><form:hidden path="id"/></td>
             </tr>
             <tr>
+                <td><label>Customer: </label></td>
+                <td>
                 <form:select path="customerId">
                     <form:options items="${customers}" itemLabel="lastname" itemValue="id" />
                 </form:select>
+                </td>
+                <td><form:errors path="customerId" cssClass="error"/></td>
             </tr>
             <tr>
+                <td><label>Product</label></td>
                 <td><form:input path="product"/></td>
+                <td><form:errors path="product" cssClass="error"/></td>
             </tr>
             <tr>
+                <td><label>Price: </label></td>
                 <td><form:input path="price"/></td>
+                <td><form:errors path="price" cssClass="error"/></td>
             </tr>
             <tr>
-                <td><input type="submit" value="Submit"/></td>
+                <td></td>
+                <td><input type="submit" value="Save"/></td>
             </tr>
         </table>
     </form:form>

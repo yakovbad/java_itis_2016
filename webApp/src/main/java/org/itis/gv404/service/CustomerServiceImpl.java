@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 @Service
 public class CustomerServiceImpl implements CustomerService{
 
@@ -27,15 +28,8 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Transactional
-    public Customer findCustomerById(Integer id) throws CustomerNotFoundException {
-        Customer customer;
-        try {
-            customer = customerDAO.findCustomerById(id);
-        } catch (NullPointerException e){
-            e.printStackTrace();
-            throw new CustomerNotFoundException();
-        }
-        return customer;
+    public Customer findCustomerById(Integer id) {
+        return customerDAO.findCustomerById(id);
     }
 
     @Transactional

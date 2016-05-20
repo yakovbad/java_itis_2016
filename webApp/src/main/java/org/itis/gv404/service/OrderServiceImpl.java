@@ -3,7 +3,9 @@ package org.itis.gv404.service;
 
 import org.itis.gv404.dao.CustomerDAO;
 import org.itis.gv404.dao.OrderDAO;
+import org.itis.gv404.domain.Customer;
 import org.itis.gv404.domain.Order;
+import org.itis.gv404.util.exception.CustomerNotFoundException;
 import org.itis.gv404.util.exception.OrderNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 @Service
 public class OrderServiceImpl implements OrderService{
 
@@ -18,7 +21,7 @@ public class OrderServiceImpl implements OrderService{
     private OrderDAO orderDAO;
 
     @Autowired
-    private CustomerDAO customerDAO;
+    private CustomerService customerService;
 
     @Transactional
     public List<Order> getAll() {
@@ -27,7 +30,12 @@ public class OrderServiceImpl implements OrderService{
 
     @Transactional
     public void addOrder(Order order) {
-        order.setCustomer(customerDAO.findCustomerById(order.getCustomerId()));
+        try {
+            order.setCustomer(customerService.findCustomerById(order.getCustomerId()));
+        }catch (Exception e){
+
+        }
+
         orderDAO.addOrder(order);
     }
 
@@ -45,8 +53,11 @@ public class OrderServiceImpl implements OrderService{
 
     @Transactional
     public void updateOrder(Order order) {
-        order.setCustomer(customerDAO.findCustomerById(order.getCustomerId()));
+        Customer customer = customerService.findCustomerById(order.getCustomerId());
+        order.setCustomer(customer);
         orderDAO.updateOrder(order);
+//        customer.getOrders().add(order);
+//        customerService.updateCustomer(customer);
     }
 
     @Transactional
