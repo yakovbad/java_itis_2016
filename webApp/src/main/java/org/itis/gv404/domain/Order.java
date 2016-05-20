@@ -10,7 +10,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne()
+    @ManyToOne(cascade = {CascadeType.REFRESH})
     @JoinColumn(name = "CUSTOMER_ID", referencedColumnName="CUSTOMER_ID")
     private Customer customer;
 

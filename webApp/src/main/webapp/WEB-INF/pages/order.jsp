@@ -6,7 +6,7 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Form</h1>
+<%@include file="header.jsp"%>
 <c:if test="${order != null}">
     <form:form method="POST" action="/webApp/order/add" modelAttribute="order">
         <table>

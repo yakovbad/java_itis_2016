@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-<h1>Form</h1>
+<%@include file="header.jsp"%>
 ${error}
 <c:if test="${customer != null}">
 <form:form method="POST" action="/webApp/customer/add" modelAttribute="customer">

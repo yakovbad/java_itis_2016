@@ -27,8 +27,7 @@ public class Customer {
     @Column(name = "AGE")
     private int age;
 
-    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, mappedBy="customer")
-    @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy="customer")
     private List<Order> orders = new ArrayList<Order>();
 
     public int getId() {

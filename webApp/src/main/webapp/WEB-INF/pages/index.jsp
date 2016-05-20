@@ -13,7 +13,6 @@
 </head>
 <body>
 ${message}
-<a href="<c:url value="/customer/all"/>">All customers</a>
-<a href="<c:url value="/orders/all"/>">All orders</a>
+<%@include file="header.jsp"%>
 </body>
 </html>

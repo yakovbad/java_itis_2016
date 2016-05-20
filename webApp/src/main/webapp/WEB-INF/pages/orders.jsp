@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-
+<%@include file="header.jsp"%>
 <table border="1">
     <thead>
     <tr>

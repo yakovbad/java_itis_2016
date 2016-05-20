@@ -4,6 +4,7 @@ import org.itis.gv404.domain.Order;
 import org.itis.gv404.service.CustomerService;
 import org.itis.gv404.service.OrderService;
 import org.itis.gv404.util.exception.OrderNotFoundException;
+import org.itis.gv404.util.validator.OrderValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,6 +55,10 @@ public class OrderController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addOrder(@ModelAttribute Order order, BindingResult result) {
+        new OrderValidator().validate(order, result);
+        if (result.hasErrors()){
+            return "order";
+        }
         try {
             orderService.findOrderById(order.getId());
             orderService.updateOrder(order);
